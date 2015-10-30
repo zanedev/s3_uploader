@@ -112,7 +112,12 @@ module S3Uploader
             dest = "#{options[:destination_dir]}#{key}"
             body = File.open(file)
             log.info("[#{Thread.current["file_number"]}/#{total_files}] Uploading #{key} to s3://#{bucket}/#{dest}")
-
+            
+            
+            if File.basename(file).include? ".gz"
+              options[:metadata] = "{'Cache-Control' => 'max-age=315576000', :content_encoding => 'gzip'}"  
+            end  
+            
             directory.files.create(
               :key    => dest,
               :body   => body,
