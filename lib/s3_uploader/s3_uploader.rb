@@ -115,7 +115,7 @@ module S3Uploader
             
             
             if File.basename(file).include? ".gz"
-              options[:metadata] = "{'Cache-Control' => 'max-age=315576000', :content_encoding => 'gzip'}"  
+              options[:metadata] = "{'Cache-Control' => 'max-age=315576000', 'Content-Encoding' => 'gzip'}"  
             end  
             
             directory.files.create(
